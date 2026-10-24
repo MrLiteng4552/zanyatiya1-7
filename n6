@@ -1,0 +1,147 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        // Задача 1
+        List<string> friends = new List<string> { "Алексей", "Мария", "Иван" };
+        foreach (var friend in friends)
+        {
+            Console.WriteLine(friend);
+        }
+
+        // Задача 2
+        List<Person> people = new List<Person>
+        {
+            new Person("Александр", 25),
+            new Person("Елена", 17),
+            new Person("Дмитрий", 30)
+        };
+        foreach (var p in people)
+        {
+            Console.WriteLine($"Имя: {p.Name}, Возраст: {p.Age}");
+        }
+
+        // Задача 3
+        Console.Write("Введите имя для поиска: ");
+        string searchName = Console.ReadLine();
+        bool found = false;
+        foreach (var p in people)
+        {
+            if (p.Name.Equals(searchName, StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine($"Найдено! {p.Name}, возраст: {p.Age}");
+                found = true;
+                break;
+            }
+        }
+        if (!found) Console.WriteLine("Человек не найден");
+
+        // Задача 4
+        for (int i = people.Count - 1; i >= 0; i--)
+        {
+            if (people[i].Age < 18)
+            {
+                people.RemoveAt(i);
+            }
+        }
+        Console.WriteLine("После удаления несовершеннолетних:");
+        foreach (var p in people)
+        {
+            Console.WriteLine($"Имя: {p.Name}, Возраст: {p.Age}");
+        }
+
+        // Задача 5
+        int adultCount = 0;
+        foreach (var p in people)
+        {
+            if (p.Age >= 18) adultCount++;
+        }
+        Console.WriteLine($"Количество людей старше 18 лет: {adultCount}");
+
+        // Восстановление начального списка для следующих задач
+        people = new List<Person>
+        {
+            new Person("Александр", 25),
+            new Person("Елена", 17),
+            new Person("Дмитрий", 30)
+        };
+
+        // Задача 6
+        List<Person> adultsOnly = new List<Person>();
+        foreach (var p in people)
+        {
+            if (p.Age >= 18)
+            {
+                adultsOnly.Add(p);
+            }
+        }
+        Console.WriteLine("Исходный список:");
+        foreach (var p in people) Console.WriteLine($"{p.Name} ({p.Age})");
+        Console.WriteLine("Отфильтрованный список:");
+        foreach (var p in adultsOnly) Console.WriteLine($"{p.Name} ({p.Age})");
+
+        // Задача 7
+        for (int i = 0; i < people.Count - 1; i++)
+        {
+            for (int j = 0; j < people.Count - 1 - i; j++)
+            {
+                if (people[j].Age > people[j + 1].Age)
+                {
+                    Person temp = people[j];
+                    people[j] = people[j + 1];
+                    people[j + 1] = temp;
+                }
+            }
+        }
+        Console.WriteLine("После сортировки по возрастанию возраста:");
+        foreach (var p in people) Console.WriteLine($"{p.Name} ({p.Age})");
+
+        // Задача 8
+        List<string> contacts = new List<string>();
+        bool running = true;
+        while (running)
+        {
+            Console.WriteLine("\n1 - Добавить контакт\n2 - Показать все\n3 - Удалить контакт\n4 - Выход");
+            Console.Write("Выберите действие: ");
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    Console.Write("Введите имя контакта: ");
+                    contacts.Add(Console.ReadLine());
+                    break;
+                case "2":
+                    Console.WriteLine("Список контактов:");
+                    for (int i = 0; i < contacts.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {contacts[i]}");
+                    }
+                    break;
+                case "3":
+                    Console.Write("Введите имя контакта для удаления: ");
+                    string toRemove = Console.ReadLine();
+                    if (contacts.Remove(toRemove)) Console.WriteLine("Удалено");
+                    else Console.WriteLine("Не найдено");
+                    break;
+                case "4":
+                    running = false;
+                    break;
+            }
+        }
+    }
+}
+
+class Person
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+
+    public Person(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+}
