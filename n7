@@ -1,0 +1,63 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        // Задача 1
+        File.WriteAllText("test.txt", "Привет, файл!");
+
+        // Задача 2
+        string content = File.ReadAllText("test.txt");
+        Console.WriteLine(content);
+
+        // Задача 3
+        string[] lines = { "Строка 1", "Строка 2", "Строка 3" };
+        File.WriteAllLines("lines.txt", lines);
+
+        // Задача 4
+        string[] readLines = File.ReadAllLines("lines.txt");
+        for (int i = 0; i < readLines.Length; i++)
+        {
+            Console.WriteLine($"{i + 1}: {readLines[i]}");
+        }
+
+        // Задача 5
+        File.WriteAllText("append.txt", "Новая строка 1\n");
+        // Заменяем текст полностью
+        File.WriteAllText("append.txt", "Новая строка 2\n"); 
+        // Дописываем в конец
+        File.AppendAllText("append.txt", "Дописанная строка 3\n");
+        File.AppendAllText("append.txt", "Дописанная строка 4\n");
+
+        // Задача 6
+        string logMessage = $"{DateTime.Now}: Запуск программы\n";
+        File.AppendAllText("log.txt", logMessage);
+
+        // Задача 7
+        string checkPath = "config.txt";
+        if (File.Exists(checkPath))
+        {
+            string configContent = File.ReadAllText(checkPath);
+            Console.WriteLine($"Содержимое config.txt: {configContent}");
+        }
+        else
+        {
+            File.WriteAllText(checkPath, "Настройки по умолчанию");
+            Console.WriteLine("Файл config.txt не найден. Создан файл по умолчанию.");
+        }
+
+        // Задача 8
+        string[] numbersToWrite = { "10", "20", "30", "40", "50", "60", "70", "80", "90", "100" };
+        File.WriteAllLines("numbers.txt", numbersToWrite);
+
+        string[] numbersRead = File.ReadAllLines("numbers.txt");
+        int sum = 0;
+        foreach (var numStr in numbersRead)
+        {
+            sum += int.Parse(numStr);
+        }
+        Console.WriteLine($"Сумма чисел из файла: {sum}");
+    }
+}
