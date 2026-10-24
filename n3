@@ -1,0 +1,134 @@
+// Задача 1
+int[] array = new int[10];
+Random rnd = new Random();
+for (int i = 0; i < array.Length; i++)
+{
+    array[i] = rnd.Next(1, 101);
+}
+for (int i = 0; i < array.Length; i++)
+{
+    Console.Write(array[i] + " ");
+}
+Console.WriteLine();
+
+// Задача 2
+int sum = 0;
+for (int i = 0; i < array.Length; i++)
+{
+    sum += array[i];
+}
+double average = (double)sum / array.Length;
+Console.WriteLine($"Сумма: {sum}");
+Console.WriteLine($"Среднее арифметическое: {average}");
+
+// Задача 3
+int maxVal = array[0];
+int maxIndex = 0;
+for (int i = 1; i < array.Length; i++)
+{
+    if (array[i] > maxVal)
+    {
+        maxVal = array[i];
+        maxIndex = i;
+    }
+}
+Console.WriteLine($"Максимум: {maxVal}, Индекс: {maxIndex}");
+
+// Задача 4
+Console.Write("Введите число для поиска: ");
+int searchNum = int.Parse(Console.ReadLine());
+int foundIndex = -1;
+for (int i = 0; i < array.Length; i++)
+{
+    if (array[i] == searchNum)
+    {
+        foundIndex = i;
+        break;
+    }
+}
+if (foundIndex != -1)
+{
+    Console.WriteLine($"Индекс элемента: {foundIndex}");
+}
+else
+{
+    Console.WriteLine("-1");
+}
+
+// Задача 5
+for (int i = 0; i < array.Length - 1; i++)
+{
+    for (int j = 0; j < array.Length - 1 - i; j++)
+    {
+        if (array[j] > array[j + 1])
+        {
+            int temp = array[j];
+            array[j] = array[j + 1];
+            array[j + 1] = temp;
+        }
+    }
+}
+for (int i = 0; i < array.Length; i++)
+{
+    Console.Write(array[i] + " ");
+}
+Console.WriteLine();
+
+// Задача 6
+Console.Write("Введите строку: ");
+string inputStr = Console.ReadLine();
+char[] charArray = inputStr.ToCharArray();
+for (int i = 0; i < charArray.Length / 2; i++)
+{
+    char temp = charArray[i];
+    charArray[i] = charArray[charArray.Length - 1 - i];
+    charArray[charArray.Length - 1 - i] = temp;
+}
+string reversedStr = new string(charArray);
+Console.WriteLine($"Обратная строка: {reversedStr}");
+
+// Задача 7
+Console.Write("Введите слово: ");
+string word = Console.ReadLine().ToLower();
+bool isPalindrome = true;
+for (int i = 0; i < word.Length / 2; i++)
+{
+    if (word[i] != word[word.Length - 1 - i])
+    {
+        isPalindrome = false;
+        break;
+    }
+}
+if (isPalindrome)
+{
+    Console.WriteLine("Палиндром");
+}
+else
+{
+    Console.WriteLine("Не палиндром");
+}
+
+// Задача 8
+Console.Write("Введите предложение: ");
+string sentence8 = Console.ReadLine().Trim();
+int wordCount = 0;
+if (sentence8.Length > 0)
+{
+    string[] words = sentence8.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+    wordCount = words.Length;
+}
+Console.WriteLine($"Количество слов: {wordCount}");
+
+// Задача 9
+Console.Write("Введите предложение: ");
+string sentence9 = Console.ReadLine();
+string[] words9 = sentence9.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+string longestWord = "";
+for (int i = 0; i < words9.Length; i++)
+{
+    if (words9[i].Length > longestWord.Length)
+    {
+        longestWord = words9[i];
+    }
+}
+Console.WriteLine($"Самое длинное слово: {longestWord}");
