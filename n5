@@ -1,0 +1,151 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Задача 1 и 2
+        Person p1 = new Person();
+        p1.name = "Иван";
+        p1.age = 20;
+        Console.WriteLine($"Имя: {p1.name}, Возраст: {p1.age}");
+        p1.Introduce();
+
+        // Задача 3
+        Person p2 = new Person("Анна", 22);
+        p2.Introduce();
+
+        // Задача 4
+        PersonWithProperties p3 = new PersonWithProperties();
+        p3.Name = "Олег";
+        p3.Age = 25;
+        Console.WriteLine($"Свойства -> Имя: {p3.Name}, Возраст: {p3.Age}");
+
+        // Задача 5
+        PersonWithValidation p4 = new PersonWithValidation("Мария", 19);
+        PersonWithValidation p5 = new PersonWithValidation("Влад", 15);
+        Console.WriteLine($"{p4.Name} совершеннолетний? {p4.IsAdult()}");
+        Console.WriteLine($"{p5.Name} совершеннолетний? {p5.IsAdult()}");
+
+        // Задача 6
+        Rectangle rect = new Rectangle(5.5, 4.0);
+        Console.WriteLine($"Площадь: {rect.GetArea()}, Периметр: {rect.GetPerimeter()}");
+
+        // Задача 7 и 8
+        BankAccount account1 = new BankAccount(1000);
+        BankAccount account2 = new BankAccount(500);
+
+        account1.Deposit(500);
+        account1.Withdraw(200);
+        Console.WriteLine($"Баланс аккаунта 1: {account1.Balance}");
+
+        account1.Transfer(account2, 400);
+        Console.WriteLine($"После перевода -> Баланс 1: {account1.Balance}, Баланс 2: {account2.Balance}");
+    }
+}
+
+// Задача 1 и 2
+class Person
+{
+    public string name;
+    public int age;
+
+    public Person() { }
+
+    // Задача 3
+    public Person(string name, int age)
+    {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void Introduce()
+    {
+        Console.WriteLine($"Привет, меня зовут {name}, мне {age} лет.");
+    }
+}
+
+// Задача 4
+class PersonWithProperties
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+}
+
+// Задача 5
+class PersonWithValidation
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+
+    public PersonWithValidation(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+
+    public bool IsAdult()
+    {
+        return Age >= 18;
+    }
+}
+
+// Задача 6
+class Rectangle
+{
+    public double Width { get; set; }
+    public double Height { get; set; }
+
+    public Rectangle(double width, double height)
+    {
+        Width = width;
+        Height = height;
+    }
+
+    public double GetArea()
+    {
+        return Width * Height;
+    }
+
+    public double GetPerimeter()
+    {
+        return 2 * (Width + Height);
+    }
+}
+
+// Задача 7 и 8
+class BankAccount
+{
+    public decimal Balance { get; private set; }
+
+    public BankAccount(decimal initialBalance)
+    {
+        Balance = initialBalance;
+    }
+
+    public void Deposit(decimal amount)
+    {
+        if (amount > 0)
+        {
+            Balance += amount;
+        }
+    }
+
+    public void Withdraw(decimal amount)
+    {
+        if (amount > 0 && amount <= Balance)
+        {
+            Balance -= amount;
+        }
+    }
+
+    // Задача 8
+    public void Transfer(BankAccount toAccount, decimal amount)
+    {
+        if (amount > 0 && amount <= Balance && toAccount != null)
+        {
+            this.Withdraw(amount);
+            toAccount.Deposit(amount);
+        }
+    }
+}
