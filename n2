@@ -1,0 +1,122 @@
+// Задача 1
+Console.Write("Введите число: ");
+int num1 = int.Parse(Console.ReadLine());
+if (num1 % 2 == 0)
+{
+    Console.WriteLine("Чётное");
+}
+else
+{
+    Console.WriteLine("Нечётное");
+}
+
+// Задача 2
+Console.Write("Введите первое число: ");
+int a2 = int.Parse(Console.ReadLine());
+Console.Write("Введите второе число: ");
+int b2 = int.Parse(Console.ReadLine());
+Console.Write("Введите третье число: ");
+int c2 = int.Parse(Console.ReadLine());
+int max = a2;
+if (b2 > max) max = b2;
+if (c2 > max) max = c2;
+Console.WriteLine($"Максимум: {max}");
+
+// Задача 3
+Console.Write("Введите количество баллов (0-100): ");
+int score = int.Parse(Console.ReadLine());
+if (score >= 90 && score <= 100)
+{
+    Console.WriteLine("Отлично");
+}
+else if (score >= 70 && score <= 89)
+{
+    Console.WriteLine("Хорошо");
+}
+else if (score >= 50 && score <= 69)
+{
+    Console.WriteLine("Удовлетворительно");
+}
+else
+{
+    Console.WriteLine("Неудовлетворительно");
+}
+
+// Задача 4
+Console.Write("Введите число N: ");
+int n4 = int.Parse(Console.ReadLine());
+for (int i = 1; i <= 10; i++)
+{
+    Console.WriteLine($"{n4} * {i} = {n4 * i}");
+}
+
+// Задача 5
+Console.Write("Введите число N: ");
+int n5 = int.Parse(Console.ReadLine());
+int loopSum = 0;
+for (int i = 1; i <= n5; i++)
+{
+    loopSum += i;
+}
+int formulaSum = n5 * (n5 + 1) / 2;
+Console.WriteLine($"Сумма через цикл: {loopSum}");
+Console.WriteLine($"Сумма через формулу: {formulaSum}");
+
+// Задача 6
+Console.Write("Введите целое число: ");
+int num6 = Math.Abs(int.Parse(Console.ReadLine()));
+int count = 0;
+if (num6 == 0)
+{
+    count = 1;
+}
+else
+{
+    while (num6 > 0)
+    {
+        count++;
+        num6 /= 10;
+    }
+}
+Console.WriteLine($"Количество цифр: {count}");
+
+// Задача 7
+int secret = 42;
+int attempts = 0;
+int guess = 0;
+while (guess != secret)
+{
+    Console.Write("Угадайте число: ");
+    guess = int.Parse(Console.ReadLine());
+    attempts++;
+    if (guess < secret)
+    {
+        Console.WriteLine("Больше");
+    }
+    else if (guess > secret)
+    {
+        Console.WriteLine("Меньше");
+    }
+}
+Console.WriteLine($"Вы угадали! Количество попыток: {attempts}");
+
+// Задача 8
+Console.Write("Введите число: ");
+int num8 = int.Parse(Console.ReadLine());
+bool isPrime = num8 > 1;
+for (int i = 2; i <= Math.Sqrt(num8); i++)
+{
+    if (num8 % i == 0)
+    {
+        isPrime = false;
+        break;
+    }
+}
+if (isPrime)
+{
+    Console.WriteLine("Простое число");
+}
+else
+{
+    Console.WriteLine("Составное число");
+}
