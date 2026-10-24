@@ -1,0 +1,121 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Задача 1
+        PrintWelcome();
+
+        // Задача 2
+        PrintRectangle(4, 3);
+
+        // Задача 3
+        int sumResult = Sum(5, 7);
+
+        // Задача 4
+        for (int i = 2; i <= 50; i++)
+        {
+            if (IsPrime(i))
+            {
+                Console.Write(i + " ");
+            }
+        }
+        Console.WriteLine();
+
+        // Задача 5
+        int[] numbers = { 5, 12, 3, 8, 22 };
+        Console.WriteLine($"Min: {FindMin(numbers)}");
+        Console.WriteLine($"Average: {GetAverage(numbers)}");
+
+        // Задача 6
+        Console.WriteLine($"Max(2): {Max(10, 20)}");
+        Console.WriteLine($"Max(3): {Max(10, 30, 20)}");
+
+        // Задача 7
+        PrintLine();
+        PrintLine('*');
+        PrintLine('#', 10);
+    }
+
+    // Задача 1
+    static void PrintWelcome()
+    {
+        Console.WriteLine("Добро пожаловать в программу!");
+    }
+
+    // Задача 2
+    static void PrintRectangle(int width, int height)
+    {
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                Console.Write("*");
+            }
+            Console.WriteLine();
+        }
+    }
+
+    // Задача 3
+    static int Sum(int a, int b)
+    {
+        return a + b;
+    }
+
+    // Задача 4
+    static bool IsPrime(int number)
+    {
+        if (number <= 1) return false;
+        for (int i = 2; i <= Math.Sqrt(number); i++)
+        {
+            if (number % i == 0) return false;
+        }
+        return true;
+    }
+
+    // Задача 5
+    static int FindMin(int[] arr)
+    {
+        int min = arr[0];
+        for (int i = 1; i < arr.Length; i++)
+        {
+            if (arr[i] < min) min = arr[i];
+        }
+        return min;
+    }
+
+    static double GetAverage(int[] arr)
+    {
+        int total = 0;
+        for (int i = 0; i < arr.Length; i++)
+        {
+            total += arr[i];
+        }
+        return (double)total / arr.Length;
+    }
+
+    // Задача 6
+    static int Max(int a, int b)
+    {
+        return a > b ? a : b;
+    }
+
+    static int Max(int a, int b, int c)
+    {
+        int max = a;
+        if (b > max) max = b;
+        if (c > max) max = c;
+        return max;
+    }
+
+    // Задача 7
+    static void PrintLine(char symbol = '-', int length = 20)
+    {
+        for (int i = 0; i < length; i++)
+        {
+            Console.Write(symbol);
+        }
+        Console.WriteLine();
+    }
+}
