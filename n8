@@ -1,0 +1,143 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        List<Task> tasks = new List<Task>();
+        string filePath = "tasks.txt";
+
+        // Задача 5
+        if (File.Exists(filePath))
+        {
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length == 2)
+                {
+                    string title = parts[0];
+                    bool isDone = bool.Parse(parts[1]);
+                    tasks.Add(new Task(title, isDone));
+                }
+            }
+        }
+
+        bool running = true;
+        while (running)
+        {
+            Console.WriteLine("\n--- МЕНЮ ---");
+            Console.WriteLine("1 – добавить задачу");
+            Console.WriteLine("2 – вывести все задачи");
+            Console.WriteLine("3 – отметить задачу выполненной");
+            Console.WriteLine("4 – удалить задачу");
+            Console.WriteLine("5 – статистика");
+            Console.WriteLine("0 – выход");
+            Console.Write("Выберите действие: ");
+            
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    Console.Write("Введите название задачи: ");
+                    string title = Console.ReadLine();
+                    tasks.Add(new Task(title));
+                    break;
+
+                case "2":
+                    if (tasks.Count == 0)
+                    {
+                        Console.WriteLine("Список задач пуст.");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < tasks.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {tasks[i]}");
+                        }
+                    }
+                    break;
+
+                case "3":
+                    Console.Write("Введите номер выполненной задачи: ");
+                    if (int.TryParse(Console.ReadLine(), out int doneNum) && doneNum > 0 && doneNum <= tasks.Count)
+                    {
+                        tasks[doneNum - 1].MarkAsDone();
+                        Console.WriteLine("Задача отмечена как выполненная.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Некорректный номер.");
+                    }
+                    break;
+
+                case "4":
+                    Console.Write("Введите номер задачи для удаления: ");
+                    if (int.TryParse(Console.ReadLine(), out int removeNum) && removeNum > 0 && removeNum <= tasks.Count)
+                    {
+                        tasks.RemoveAt(removeNum - 1);
+                        Console.WriteLine("Задача удалена.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Некорректный номер.");
+                    }
+                    break;
+
+                case "5":
+                    int total = tasks.Count;
+                    int completed = 0;
+                    foreach (var t in tasks)
+                    {
+                        if (t.IsDone) completed++;
+                    }
+                    int remaining = total - completed;
+                    Console.WriteLine($"Всего задач: {total}");
+                    Console.WriteLine($"Выполнено: {completed}");
+                    Console.WriteLine($"Осталось: {remaining}");
+                    break;
+
+                case "0":
+                    // Задача 4
+                    List<string> linesToSave = new List<string>();
+                    foreach (var t in tasks)
+                    {
+                        linesToSave.Add($"{t.Title}|{t.IsDone}");
+                    }
+                    File.WriteAllLines(filePath, linesToSave);
+                    running = false;
+                    break;
+
+                default:
+                    Console.WriteLine("Неверный ввод. Попробуйте снова.");
+                    break;
+            }
+        }
+    }
+}
+
+// Задача 1
+class Task
+{
+    public string Title { get; set; }
+    public bool IsDone { get; set; }
+
+    public Task(string title, bool isDone = false)
+    {
+        Title = title;
+        IsDone = isDone;
+    }
+
+    public void MarkAsDone()
+    {
+        IsDone = true;
+    }
+
+    public override string ToString()
+    {
+        string status = IsDone ? "[V]" : "[ ]";
+        return $"{status} {Title}";
+    }
+}
